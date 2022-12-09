@@ -31,7 +31,7 @@ public class InventoryTests
     }
 
     [Test]
-    public void TC_05AddThreeItems_ShouldBeadded()
+    public void TC_01AddThreeItems_ShouldBeadded()
     {
         loginPage.Login("standard_user", "secret_sauce");
         inventoryPage.AddOnesie.Click();
@@ -43,7 +43,7 @@ public class InventoryTests
     }
 
     [Test]
-    public void TC_06AddTwoItemsRemoveAndBackToShopping_ShouldBeBack()
+    public void TC_02AddTwoItemsRemoveAndBackToShopping_ShouldBeBack()
     {
         loginPage.Login("standard_user", "secret_sauce");
         inventoryPage.AddOnesie.Click();
@@ -57,7 +57,7 @@ public class InventoryTests
     }
 
     [Test]
-    public void TC_07CheckItemTotal_ShouldBeDisplayed()
+    public void TC_03CheckItemTotal_ShouldBeDisplayed()
     {
         loginPage.Login("standard_user", "secret_sauce");
         inventoryPage.AddOnesie.Click();
@@ -74,7 +74,7 @@ public class InventoryTests
     }
 
     [Test]
-    public void TC_08CheckTotal_ShouldBeDisplayed()
+    public void TC_04CheckTotal_ShouldBeDisplayed()
     {
         loginPage.Login("standard_user", "secret_sauce");
         inventoryPage.AddOnesie.Click();
@@ -91,7 +91,7 @@ public class InventoryTests
     }
 
     [Test]
-    public void TC_09FinishBuy_ShouldBeDisplayed()
+    public void TC_05FinishBuy_ShouldBeDisplayed()
     {
         loginPage.Login("standard_user", "secret_sauce");
         inventoryPage.AddOnesie.Click();

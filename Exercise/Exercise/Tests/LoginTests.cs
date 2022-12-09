@@ -12,6 +12,9 @@ public class Tests
     CartPage cartPage;
     CheckoutPageOne checkoutPageOne;
     CheckoutPageTwo checkoutPageTwo;
+    string errorMessageOne = "Epic sadface: Username and password do not match any user in this service";
+    string errorMessageTwo = "Epic sadface: Username is required";
+    string errorMessageThree = "Epic sadface: Password is required";
 
     [SetUp]
     public void Setup()
@@ -44,7 +47,7 @@ public class Tests
     {
         loginPage.Login("standard_user212", "secret_sauce");
 
-        Assert.That(loginPage.UserNotLogin.Displayed);
+        Assert.That(errorMessageOne, Is.EqualTo (loginPage.UserNotLogin.Text));
     }
 
     [Test]
@@ -52,7 +55,7 @@ public class Tests
     {
         loginPage.Login("standard_user", "secret_sauce212");
 
-        Assert.That(loginPage.UserNotLogin.Displayed);
+        Assert.That(errorMessageOne, Is.EqualTo(loginPage.UserNotLogin.Text));
     }
 
     [Test]
@@ -60,7 +63,23 @@ public class Tests
     {
         loginPage.Login("", "");
 
-        Assert.That(loginPage.UserNotLogin.Displayed);
+        Assert.That(errorMessageTwo, Is.EqualTo(loginPage.UserNotLogin.Text));
+    }
+
+    [Test]
+    public void TC005_WithoutUserName_ShouldBeErrorMessageButtonIsDispalyed()
+    {
+        loginPage.Login("", "");
+
+        Assert.That(errorMessageTwo, Is.EqualTo(loginPage.UserNotLogin.Text));
+    }
+
+    [Test]
+    public void TC006_WithoutPassword_ShouldBeErrorMessageButtonIsDispalyed()
+    {
+        loginPage.Login("", "");
+
+        Assert.That(errorMessageThree, Is.EqualTo(loginPage.UserNotLogin.Text));
     }
 
     [Test]

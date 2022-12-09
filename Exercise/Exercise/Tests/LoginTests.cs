@@ -9,9 +9,6 @@ public class Tests
 {
     LoginPage loginPage;
     InventoryPage inventoryPage;
-    CartPage cartPage;
-    CheckoutPageOne checkoutPageOne;
-    CheckoutPageTwo checkoutPageTwo;
     string errorMessageOne = "Epic sadface: Username and password do not match any user in this service";
     string errorMessageTwo = "Epic sadface: Username is required";
     string errorMessageThree = "Epic sadface: Password is required";
@@ -22,10 +19,6 @@ public class Tests
         Webdrivers.Initialize();
         loginPage = new LoginPage();
         inventoryPage = new InventoryPage();
-        cartPage = new CartPage();
-        checkoutPageOne = new CheckoutPageOne();
-        checkoutPageTwo = new CheckoutPageTwo();
-
     }
 
     [TearDown]
@@ -69,7 +62,7 @@ public class Tests
     [Test]
     public void TC005_WithoutUserName_ShouldBeErrorMessageButtonIsDispalyed()
     {
-        loginPage.Login("", "");
+        loginPage.Login("", "secret_sauce");
 
         Assert.That(errorMessageTwo, Is.EqualTo(loginPage.UserNotLogin.Text));
     }
@@ -77,93 +70,8 @@ public class Tests
     [Test]
     public void TC006_WithoutPassword_ShouldBeErrorMessageButtonIsDispalyed()
     {
-        loginPage.Login("", "");
+        loginPage.Login("standard_user", "");
 
         Assert.That(errorMessageThree, Is.EqualTo(loginPage.UserNotLogin.Text));
-    }
-
-    [Test]
-    public void TC_05AddThreeItems_ShouldBeadded()
-    {
-        loginPage.Login("standard_user", "secret_sauce");
-        inventoryPage.AddOnesie.Click();
-        inventoryPage.AddBikeLight.Click();
-        inventoryPage.AddBlackT_Shirt.Click();
-        inventoryPage.SelectOption("Name (A to Z)");
-
-        Assert.That("3", Is.EqualTo(inventoryPage.ShoppingCardClick.Text));
-
-    }
-
-    [Test]
-    public void TC_06AddTwoItemsRemoveAndBackToShopping_ShouldBeBack()
-    {
-        loginPage.Login("standard_user", "secret_sauce");
-        inventoryPage.AddOnesie.Click();
-        inventoryPage.AddBikeLight.Click();
-        inventoryPage.Cart.Click();
-        cartPage.RemoveOnesie.Click();
-        cartPage.RemoveBikelight.Click();
-        cartPage.ContinueShopping.Click();
-        
-        Assert.That("", Is.EqualTo(inventoryPage.ShoppingCardClick.Text));
-    }
-
-    [Test]
-    public void TC_07CheckItemTotal_ShouldBeDisplayed()
-    {
-        loginPage.Login("standard_user", "secret_sauce");
-        inventoryPage.AddOnesie.Click();
-        inventoryPage.AddBikeLight.Click();
-        inventoryPage.AddBlackT_Shirt.Click();
-        inventoryPage.Cart.Click();
-        cartPage.ButtonCheckout.Click();
-        checkoutPageOne.FirstName.SendKeys("Spale");
-        checkoutPageOne.LastName.SendKeys("Spaleti");
-        checkoutPageOne.ZipCode.SendKeys("11000");
-        checkoutPageOne.ButtonContinue.Submit();
-        
-        
-
-        Assert.That("Item total: $33.97", Is.EqualTo(checkoutPageTwo.ItemTotal.Text));
-    }
-
-    [Test]
-    public void TC_08CheckTotal_ShouldBeDisplayed()
-    {
-        loginPage.Login("standard_user", "secret_sauce");
-        inventoryPage.AddOnesie.Click();
-        inventoryPage.AddBikeLight.Click();
-        inventoryPage.AddBlackT_Shirt.Click();
-        inventoryPage.Cart.Click();
-        cartPage.ButtonCheckout.Click();
-        checkoutPageOne.FirstName.SendKeys("Spale");
-        checkoutPageOne.LastName.SendKeys("Spaleti");
-        checkoutPageOne.ZipCode.SendKeys("11000");
-        checkoutPageOne.ButtonContinue.Submit();
-
-
-
-        Assert.That("Total: $36.69", Is.EqualTo(checkoutPageTwo.Total.Text));
-    }
-
-    [Test]
-    public void TC_09FinishBuy_ShouldBeDisplayed()
-    {
-        loginPage.Login("standard_user", "secret_sauce");
-        inventoryPage.AddOnesie.Click();
-        inventoryPage.AddBikeLight.Click();
-        inventoryPage.AddBlackT_Shirt.Click();
-        inventoryPage.Cart.Click();
-        cartPage.ButtonCheckout.Click();
-        checkoutPageOne.FirstName.SendKeys("Spale");
-        checkoutPageOne.LastName.SendKeys("Spaleti");
-        checkoutPageOne.ZipCode.SendKeys("11000");
-        checkoutPageOne.ButtonContinue.Submit();
-        checkoutPageTwo.ButtonFinish.Click();
-
-
-
-        Assert.That("THANK YOU FOR YOUR ORDER", Is.EqualTo(checkoutPageTwo.OrderFinished.Text));
     }
 }

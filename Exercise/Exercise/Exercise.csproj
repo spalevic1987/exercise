@@ -30,9 +30,11 @@
     <None Remove="Page\" />
     <None Remove="Microsoft.SourceLink.GitHub" />
     <None Remove="GitHub" />
+    <None Remove="Tests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Driver\" />
     <Folder Include="Page\" />
+    <Folder Include="Tests\" />
   </ItemGroup>
 </Project>
